@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% block content %}
+<h2 class="text-2xl">Dashboard</h2>
+<a href="{{ url_for('logout') }}" class="btn">Logout</a>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+    <tr>
+      <td>{{ user.id }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>
+        <a
+          href="{{ url_for('edit_user', user_id=user.id) }}"
+          class="btn btn-primary"
+          >Edit</a
+        >
+        <form
+          action="{{ url_for('delete_user', user_id=user.id) }}"
+          method="POST"
+          style="display: inline"
+        >
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
